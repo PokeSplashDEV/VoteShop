@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'fabric-loom' version '1.4-SNAPSHOT'
     id 'maven-publish'
     id "org.jetbrains.kotlin.jvm" version "1.7.10"
 }
@@ -54,7 +54,7 @@ dependencies {
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
 
     // Gooeylibs
-    modImplementation("ca.landonjw.gooeylibs:api:${rootProject.gooeylibs_version}")
+    modApi("ca.landonjw.gooeylibs:fabric:${rootProject.gooeylibs_version}")
 
     // Cobblemon
     modImplementation("com.cobblemon:fabric:${rootProject.cobblemon_version}")
