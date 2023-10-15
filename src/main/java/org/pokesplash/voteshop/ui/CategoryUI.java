@@ -11,7 +11,6 @@ import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.pokesplash.voteshop.VoteShop;
-import org.pokesplash.voteshop.category.CategoryProvider;
 import org.pokesplash.voteshop.category.configs.Category;
 import org.pokesplash.voteshop.category.configs.Item;
 import org.pokesplash.voteshop.util.ImpactorUtils;

@@ -4,15 +4,12 @@ import ca.landonjw.gooeylibs2.api.UIManager;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.CommandNode;
-import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
-import org.pokesplash.voteshop.VoteShop;
 import org.pokesplash.voteshop.category.CategoryProvider;
 import org.pokesplash.voteshop.category.configs.Category;
 import org.pokesplash.voteshop.ui.CategoryUI;
-import org.pokesplash.voteshop.util.LuckPermsUtils;
 
 public class CategoryCommand {
 	public CommandNode<ServerCommandSource> build() {

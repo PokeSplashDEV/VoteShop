@@ -7,11 +7,9 @@ import ca.landonjw.gooeylibs2.api.page.GooeyPage;
 import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.impactdev.impactor.api.economy.accounts.Account;
 import net.impactdev.impactor.api.economy.transactions.EconomyTransaction;
-import net.minecraft.item.Items;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -23,7 +21,6 @@ import org.pokesplash.voteshop.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class ItemUI {
 	public Page getPage(Item item, Category category, ServerPlayerEntity player) {

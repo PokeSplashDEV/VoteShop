@@ -11,8 +11,6 @@ import net.minecraft.text.Text;
 import org.pokesplash.voteshop.ui.MainUI;
 import org.pokesplash.voteshop.util.LuckPermsUtils;
 
-import javax.swing.*;
-
 public class BaseCommand {
 	public void register(CommandDispatcher<ServerCommandSource> dispatcher) {
 		LiteralArgumentBuilder<ServerCommandSource> root = CommandManager
