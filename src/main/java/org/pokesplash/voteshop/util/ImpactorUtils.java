@@ -5,6 +5,8 @@ import net.impactdev.impactor.api.economy.accounts.Account;
 import net.impactdev.impactor.api.economy.currency.Currency;
 import net.impactdev.impactor.api.economy.transactions.EconomyTransaction;
 import net.impactdev.impactor.api.economy.transactions.EconomyTransferTransaction;
+import net.kyori.adventure.key.Key;
+import org.pokesplash.voteshop.VoteShop;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -12,7 +14,7 @@ import java.util.UUID;
 /**
  * Class to interact with the Impactor API
  */
-public abstract class Impactor {
+public abstract class ImpactorUtils {
 
 	// The impactor service
 	private static EconomyService service = EconomyService.instance();
@@ -68,5 +70,17 @@ public abstract class Impactor {
 		EconomyTransferTransaction transaction = sender.transferAsync(receiver, new BigDecimal(amount)).join();
 
 		return transaction.successful();
+	}
+
+	/**
+	 * Sets the currency to a given one.
+	 * @param currencyName The currency to be to set.
+	 */
+	public static void setCurrency(String currencyName) {
+		if (service.currencies().currency(Key.key(currencyName)).isEmpty()) {
+			VoteShop.LOGGER.fatal("Unable to find Impactor currency " + currencyName);
+		} else {
+			currency = service.currencies().currency(Key.key(currencyName)).get();
+		}
 	}
 }
