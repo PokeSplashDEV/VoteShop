@@ -12,6 +12,7 @@ public class Lang {
 	private String backButtonMaterial;
 	private String purchaseMaterial;
 	private String cancelMaterial;
+	private String insufficientBalanceMaterial;
 
 	public Lang() {
 		title = "VoteShop";
@@ -19,6 +20,7 @@ public class Lang {
 		backButtonMaterial = "minecraft:barrier";
 		purchaseMaterial = "minecraft:lime_stained_glass_pane";
 		cancelMaterial = "minecraft:red_stained_glass_pane";
+		insufficientBalanceMaterial = "minecraft:barrier";
 	}
 
 	public String getTitle() {
@@ -36,6 +38,9 @@ public class Lang {
 	public String getCancelMaterial() {
 		return cancelMaterial;
 	}
+	public String getInsufficientBalanceMaterial() {
+		return insufficientBalanceMaterial;
+	}
 
 	/**
 	 * Method to initialize the config.
@@ -50,6 +55,7 @@ public class Lang {
 					backButtonMaterial = lang.getBackButtonMaterial();
 					purchaseMaterial = lang.getPurchaseMaterial();
 					cancelMaterial = lang.getCancelMaterial();
+					insufficientBalanceMaterial = lang.getInsufficientBalanceMaterial();
 				});
 
 		if (!futureRead.join()) {

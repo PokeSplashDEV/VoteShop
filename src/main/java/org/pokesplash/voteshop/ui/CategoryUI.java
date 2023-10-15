@@ -9,10 +9,12 @@ import ca.landonjw.gooeylibs2.api.helpers.PaginationHelper;
 import ca.landonjw.gooeylibs2.api.page.LinkedPage;
 import ca.landonjw.gooeylibs2.api.page.Page;
 import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
+import net.minecraft.server.network.ServerPlayerEntity;
 import org.pokesplash.voteshop.VoteShop;
 import org.pokesplash.voteshop.category.CategoryProvider;
 import org.pokesplash.voteshop.category.configs.Category;
 import org.pokesplash.voteshop.category.configs.Item;
+import org.pokesplash.voteshop.util.ImpactorUtils;
 import org.pokesplash.voteshop.util.Utils;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class CategoryUI {
-	public Page getPage(Category category) {
+	public Page getPage(Category category, ServerPlayerEntity player) {
 		PlaceholderButton placeholderButton = new PlaceholderButton();
 
 		List<Button> itemButtons = new ArrayList<>();
@@ -28,6 +30,7 @@ public class CategoryUI {
 			Collection<String> lore = new ArrayList<>();
 			lore.addAll(item.getDescription());
 			lore.add("§aBuy: §e" + item.getBuy());
+			lore.add("§6Current Balance: " + ImpactorUtils.getAccount(player.getUuid()).balanceAsync().join());
 
 
 			Button button = GooeyButton.builder()
@@ -35,7 +38,7 @@ public class CategoryUI {
 					.title(item.getName())
 					.lore(lore)
 					.onClick(el -> {
-						UIManager.openUIForcefully(el.getPlayer(), new ItemUI().getPage(item, category));
+						UIManager.openUIForcefully(el.getPlayer(), new ItemUI().getPage(item, category, el.getPlayer()));
 					})
 					.build();
 

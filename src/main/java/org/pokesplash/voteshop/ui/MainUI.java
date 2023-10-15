@@ -31,7 +31,7 @@ public class MainUI {
 					.onClick(el -> {
 						ServerPlayerEntity player = el.getPlayer();
 
-						UIManager.openUIForcefully(player, new CategoryUI().getPage(category));
+						UIManager.openUIForcefully(player, new CategoryUI().getPage(category, el.getPlayer()));
 					})
 					.build();
 

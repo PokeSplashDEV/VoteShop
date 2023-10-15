@@ -38,7 +38,8 @@ public class CategoryCommand {
 
 		for (Category category : CategoryProvider.getCategories()) {
 			if (category.getName().equalsIgnoreCase(argument)) {
-				UIManager.openUIForcefully(context.getSource().getPlayer(), new CategoryUI().getPage(category));
+				UIManager.openUIForcefully(context.getSource().getPlayer(), new CategoryUI().getPage(category,
+						context.getSource().getPlayer()));
 				return 1;
 			}
 		}
