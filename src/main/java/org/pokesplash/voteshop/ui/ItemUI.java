@@ -10,6 +10,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.impactdev.impactor.api.economy.accounts.Account;
+import net.impactdev.impactor.api.economy.transactions.EconomyTransaction;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import org.pokesplash.voteshop.VoteShop;
@@ -34,10 +35,10 @@ public class ItemUI {
 				.onClick(e -> {
 					// TODO purchase logic
 					Account account = ImpactorUtils.getAccount(e.getPlayer().getUuid());
-					boolean success = ImpactorUtils.remove(account, item.getBuy());
+					EconomyTransaction transaction = ImpactorUtils.remove(account, item.getBuy());
 
-					if (!success) {
-						e.getPlayer().sendMessage(Text.literal("Transaction failed."));
+					if (!transaction.successful()) {
+						e.getPlayer().sendMessage(Text.literal(transaction.result().toString()));
 						return;
 					}
 
@@ -46,7 +47,6 @@ public class ItemUI {
 						e.getPlayer().sendMessage(Text.literal("Invalid buy type."));
 						return;
 					}
-
 
 					if (item.getBuyType().equalsIgnoreCase("item")) {
 						// Give Item
