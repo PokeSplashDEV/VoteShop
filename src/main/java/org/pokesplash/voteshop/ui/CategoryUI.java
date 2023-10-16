@@ -33,7 +33,7 @@ public class CategoryUI {
 
 
 			Button button = GooeyButton.builder()
-					.display(Utils.parseItemId(item.getMaterial()))
+					.display(Utils.parseItemId(item.getMaterial(), item.getQuantity()))
 					.title(item.getName())
 					.lore(lore)
 					.onClick(el -> {

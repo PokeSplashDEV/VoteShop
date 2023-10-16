@@ -3,6 +3,7 @@ package org.pokesplash.voteshop.category;
 import com.google.gson.Gson;
 import org.pokesplash.voteshop.VoteShop;
 import org.pokesplash.voteshop.category.configs.Category;
+import org.pokesplash.voteshop.category.configs.Item;
 import org.pokesplash.voteshop.util.Utils;
 
 import java.io.File;
@@ -31,7 +32,22 @@ public abstract class CategoryProvider {
 			Utils.readFileAsync(filePath, file, el -> {
 				Gson gson = Utils.newGson();
 				Category category = gson.fromJson(el, Category.class);
-				categories.add(category);
+
+				boolean hasError = false;
+
+				for (Item item : category.getItems()) {
+					if (!item.getBuyType().equalsIgnoreCase("item") &&
+					!item.getBuyType().equalsIgnoreCase("command")) {
+						hasError = true;
+					}
+				}
+
+				if (hasError) {
+					VoteShop.LOGGER.error("Could not add category " + category.getName() +
+							"to VoteShop as at least one of the items has an invalid buy type.");
+				} else {
+					categories.add(category);
+				}
 			});
 		}
 	}

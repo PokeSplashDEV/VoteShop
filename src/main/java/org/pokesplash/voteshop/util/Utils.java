@@ -285,9 +285,23 @@ public abstract class Utils {
 	 * Replaces placeholders
 	 * @return Amended string.
 	 */
-	public static String formatPlaceholders(String message, String player) {
+	public static String formatPlaceholders(String message, String player, int amount, String item) {
 		return message
-				.replaceAll("%player%", player);
+				.replaceAll("%player%", player)
+				.replaceAll("%amount%", String.valueOf(amount))
+				.replaceAll("%item%", item);
+	}
+
+	/**
+	 * Parses item ID string to an item stack
+	 * @param id The id to parse to
+	 * @return ItemStack
+	 */
+	public static ItemStack parseItemId(String id, int amount) {
+		NbtCompound tag = new NbtCompound();
+		tag.putString("id", id);
+		tag.putInt("Count", amount);
+		return ItemStack.fromNbt(tag);
 	}
 
 	/**

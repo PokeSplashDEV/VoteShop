@@ -25,7 +25,7 @@ import java.util.Collection;
 public class ItemUI {
 	public Page getPage(Item item, Category category, ServerPlayerEntity player) {
 		GooeyButton itemButton = GooeyButton.builder()
-				.display(Utils.parseItemId(item.getMaterial()))
+				.display(Utils.parseItemId(item.getMaterial(), item.getQuantity()))
 				.title(item.getName())
 				.lore(item.getDescription())
 				.build();
@@ -44,33 +44,34 @@ public class ItemUI {
 					EconomyTransaction transaction = ImpactorUtils.remove(account, item.getBuy());
 
 					if (!transaction.successful()) {
-						e.getPlayer().sendMessage(Text.literal(transaction.result().toString()));
-						return;
-					}
-
-					if (!item.getBuyType().equalsIgnoreCase("item") &&
-							!item.getBuyType().equalsIgnoreCase("command")) {
-						e.getPlayer().sendMessage(Text.literal("Invalid buy type."));
+						e.getPlayer().sendMessage(Text.literal("§c" + transaction.result().toString()));
 						return;
 					}
 
 					if (item.getBuyType().equalsIgnoreCase("item")) {
 						// Give Item
-						e.getPlayer().getInventory().addPickBlock(Utils.parseItemId(item.getMaterial()));
+						e.getPlayer().getInventory().insertStack(Utils.parseItemId(item.getMaterial(), item.getQuantity()));
 					} else {
 						// Run commands
 						CommandDispatcher<ServerCommandSource> dispatcher =
 								e.getPlayer().getServer().getCommandManager().getDispatcher();
 						for (String command : item.getCommands()) {
 							try {
-								dispatcher.execute(Utils.formatPlaceholders(command, e.getPlayer().getName().getString()),
-										e.getPlayer().getCommandSource());
+								dispatcher.execute(
+										Utils.formatPlaceholders(command, e.getPlayer().getName().getString(),
+												item.getQuantity(), item.getName()),
+										e.getPlayer().getServer().getCommandSource());
 							} catch (CommandSyntaxException ex) {
 								throw new RuntimeException(ex);
 							}
 						}
 					}
 					UIManager.closeUI(e.getPlayer());
+					e.getPlayer().sendMessage(Text.literal(
+							Utils.formatPlaceholders(VoteShop.lang.getGiveMessage(),
+									e.getPlayer().getName().getString(),
+									item.getQuantity(), item.getName())
+					));
 				})
 				.build();
 

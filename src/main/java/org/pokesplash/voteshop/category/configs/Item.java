@@ -8,6 +8,7 @@ public class Item {
 	private ArrayList<String> description;
 	private double buy;
 	private String buyType;
+	private int quantity;
 	private ArrayList<String> commands;
 
 	public String getName() {
@@ -32,5 +33,9 @@ public class Item {
 
 	public ArrayList<String> getCommands() {
 		return commands;
+	}
+
+	public int getQuantity() {
+		return quantity;
 	}
 }
