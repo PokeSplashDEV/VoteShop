@@ -34,7 +34,7 @@ public class ItemUI {
 
 		Collection<String> purchaseLore = new ArrayList<>();
 		purchaseLore.add("§aBuy: §e" + item.getBuy());
-		purchaseLore.add("§6Current Balance:" + ImpactorUtils.getAccount(player.getUuid()).balanceAsync().join());
+		purchaseLore.add("§6Current Balance: " + ImpactorUtils.getAccount(player.getUuid()).balanceAsync().join());
 
 		GooeyButton purchase = GooeyButton.builder()
 				.display(Utils.parseItemId(VoteShop.lang.getPurchaseMaterial()))

@@ -14,6 +14,8 @@ public class Lang {
 	private String cancelMaterial;
 	private String insufficientBalanceMaterial;
 	private String giveMessage;
+	private String nextPageMaterial;
+	private String previousPageMaterial;
 
 	public Lang() {
 		title = "VoteShop";
@@ -23,6 +25,8 @@ public class Lang {
 		cancelMaterial = "minecraft:red_stained_glass_pane";
 		insufficientBalanceMaterial = "minecraft:barrier";
 		giveMessage = "§2Successfully gave you %amount% %item%";
+		nextPageMaterial = "minecraft:arrow";
+		previousPageMaterial = "cobblemon:poison_barb";
 	}
 
 	public String getTitle() {
@@ -46,6 +50,12 @@ public class Lang {
 	public String getGiveMessage() {
 		return giveMessage;
 	}
+	public String getNextPageMaterial() {
+		return nextPageMaterial;
+	}
+	public String getPreviousPageMaterial() {
+		return previousPageMaterial;
+	}
 
 	/**
 	 * Method to initialize the config.
@@ -62,6 +72,8 @@ public class Lang {
 					cancelMaterial = lang.getCancelMaterial();
 					insufficientBalanceMaterial = lang.getInsufficientBalanceMaterial();
 					giveMessage = lang.getGiveMessage();
+					nextPageMaterial = lang.getNextPageMaterial();
+					previousPageMaterial = lang.getPreviousPageMaterial();
 				});
 
 		if (!futureRead.join()) {

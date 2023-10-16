@@ -5,6 +5,8 @@ import ca.landonjw.gooeylibs2.api.button.Button;
 import ca.landonjw.gooeylibs2.api.button.FlagType;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.button.PlaceholderButton;
+import ca.landonjw.gooeylibs2.api.button.linked.LinkType;
+import ca.landonjw.gooeylibs2.api.button.linked.LinkedPageButton;
 import ca.landonjw.gooeylibs2.api.helpers.PaginationHelper;
 import ca.landonjw.gooeylibs2.api.page.LinkedPage;
 import ca.landonjw.gooeylibs2.api.page.Page;
@@ -21,6 +23,19 @@ import java.util.Collection;
 import java.util.List;
 
 public class CategoryUI {
+
+	private final LinkedPageButton nextPage = LinkedPageButton.builder()
+			.display(Utils.parseItemId(VoteShop.lang.getNextPageMaterial()))
+			.title("§7Next Page")
+			.linkType(LinkType.Next)
+			.build();
+
+	private final LinkedPageButton previousPage = LinkedPageButton.builder()
+			.display(Utils.parseItemId(VoteShop.lang.getPreviousPageMaterial()))
+			.title("§7Previous Page")
+			.linkType(LinkType.Previous)
+			.build();
+
 	public Page getPage(Category category, ServerPlayerEntity player) {
 		PlaceholderButton placeholderButton = new PlaceholderButton();
 
@@ -61,15 +76,19 @@ public class CategoryUI {
 				})
 				.build();
 
-		int rows = (int) Math.ceil((double) category.getItems().size() / 7) + 2;
+		int rows = category.getItems().size() <= 28 ? (int) Math.ceil((double) category.getItems().size() / 7) + 2 : 6;
 
-		ChestTemplate template = ChestTemplate.builder(rows)
+		ChestTemplate.Builder template = ChestTemplate.builder(rows)
 				.rectangle(1, 1, rows - 2, 7, placeholderButton)
 				.fill(filler)
-				.set(0, 0, back)
-				.build();
+				.set(0, 0, back);
 
-		LinkedPage page = PaginationHelper.createPagesFromPlaceholders(template, itemButtons, null);
+		if (category.getItems().size() > 28) {
+			template.set(45, previousPage);
+			template.set(53, nextPage);
+		}
+
+		LinkedPage page = PaginationHelper.createPagesFromPlaceholders(template.build(), itemButtons, null);
 		page.setTitle(category.getName());
 
 		return page;

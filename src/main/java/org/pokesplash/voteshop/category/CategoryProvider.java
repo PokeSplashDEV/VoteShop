@@ -19,6 +19,8 @@ public abstract class CategoryProvider {
 	public static void init() {
 		String filePath = VoteShop.BASE_PATH + "categories/";
 
+		categories  = new ArrayList<>();
+
 		File dir = Utils.checkForDirectory(filePath);
 
 		String[] list = dir.list();
@@ -28,7 +30,6 @@ public abstract class CategoryProvider {
 		}
 
 		for (String file : list) {
-			categories  = new ArrayList<>();
 			Utils.readFileAsync(filePath, file, el -> {
 				Gson gson = Utils.newGson();
 				Category category = gson.fromJson(el, Category.class);
@@ -50,5 +51,6 @@ public abstract class CategoryProvider {
 				}
 			});
 		}
+		VoteShop.LOGGER.info("VoteShop read " + categories.size() + " files.");
 	}
 }

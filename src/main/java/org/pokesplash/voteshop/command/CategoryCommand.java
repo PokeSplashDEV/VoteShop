@@ -10,13 +10,14 @@ import net.minecraft.text.Text;
 import org.pokesplash.voteshop.category.CategoryProvider;
 import org.pokesplash.voteshop.category.configs.Category;
 import org.pokesplash.voteshop.ui.CategoryUI;
+import org.pokesplash.voteshop.util.Utils;
 
 public class CategoryCommand {
 	public CommandNode<ServerCommandSource> build() {
 		return CommandManager.argument("category", StringArgumentType.greedyString())
 				.suggests((ctx, builder) -> {
 					for (Category category : CategoryProvider.getCategories()) {
-						builder.suggest(category.getName());
+						builder.suggest(Utils.formatMessage(category.getName(), false));
 					}
 					return builder.buildFuture();
 				})
@@ -34,7 +35,7 @@ public class CategoryCommand {
 		String argument = StringArgumentType.getString(context, "category");
 
 		for (Category category : CategoryProvider.getCategories()) {
-			if (category.getName().equalsIgnoreCase(argument)) {
+			if (Utils.formatMessage(category.getName(), false).equalsIgnoreCase(argument)) {
 				UIManager.openUIForcefully(context.getSource().getPlayer(), new CategoryUI().getPage(category,
 						context.getSource().getPlayer()));
 				return 1;
